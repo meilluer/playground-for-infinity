@@ -373,7 +373,6 @@
 
     <string name="account_switched">Account Switched. So all other pages are gone.</string>
 
-    <string name="settings_api_title">API Settings</string>
     <string name="settings_notification_master_title">Notification</string>
     <string name="settings_notification_enable_notification_title">Enable Notifications</string>
     <string name="settings_notification_interval_title">Check Notifications Interval</string>
@@ -556,6 +555,7 @@
     <string name="settings_translation_summary">Translate this app on POEditor. Thanks to all contributors.</string>
     <string name="settings_credits_national_flags">National Flags</string>
     <string name="settings_credits_national_flags_summary">Icon made by Freepik from www.flaticon.com</string>
+    <string name="settings_api_keys_title">API Keys</string>
     <string name="settings_miscellaneous_title">Miscellaneous</string>
     <string name="settings_respect_subreddit_recommended_comment_sort_type_title">Respect Subreddit Recommended Comment Sort Type</string>
     <string name="settings_respect_subreddit_recommended_comment_sort_type_summary">Comment sort type will not be saved</string>
@@ -1568,4 +1568,22 @@
     <string name="undistinguished_as_mod">Undistinguished as moderator</string>
     <string name="undistinguish_as_mod_failed">Undistinguish as moderator failed</string>
     <string name="share_video">Share Video</string>
+    <string name="video_quality_wifi">Video quality on Wi-Fi</string>
+    <string name="video_quality_mobile">Video quality on mobile data</string>
+    <string-array name="video_quality_options">
+        <item>Auto</item>
+        <item>240p</item>
+        <item>360p</item>
+        <item>480p</item>
+        <item>720p</item>
+        <item>1080p</item>
+    </string-array>
+    <string-array name="video_quality_values">
+        <item>auto</item>
+        <item>240</item>
+        <item>360</item>
+        <item>480</item>
+        <item>720</item>
+        <item>1080</item>
+    </string-array>
 </resources>
