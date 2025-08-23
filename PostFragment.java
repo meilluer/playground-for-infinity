@@ -76,6 +76,10 @@ import ml.docilealligator.infinityforreddit.utils.Utils;
 import ml.docilealligator.infinityforreddit.videoautoplay.ExoCreator;
 import ml.docilealligator.infinityforreddit.videoautoplay.media.PlaybackInfo;
 import ml.docilealligator.infinityforreddit.videoautoplay.media.VolumeInfo;
+import ml.docilealligator.infinityforreddit.subreddit.Flair;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import java.util.List;
 import retrofit2.Retrofit;
 
 
@@ -92,6 +96,7 @@ public class PostFragment extends PostFragmentBase implements FragmentCommunicat
     public static final String EXTRA_POST_TYPE = "EPT";
     public static final String EXTRA_FILTER = "EF";
     public static final String EXTRA_DISABLE_READ_POSTS = "EDRP";
+    public static final String EXTRA_SUBREDDIT_FLAIRS = "ESF";
 
     private static final String IS_IN_LAZY_MODE_STATE = "IILMS";
     private static final String RECYCLER_VIEW_POSITION_STATE = "RVPS";
@@ -817,6 +822,9 @@ public class PostFragment extends PostFragmentBase implements FragmentCommunicat
             return new PlaybackInfo(INDEX_UNSET, TIME_UNSET, volumeInfo);
         });
 
+        ArrayList<Flair> flairs = getArguments().getParcelableArrayList(EXTRA_SUBREDDIT_FLAIRS);
+        updateFlairs(flairs);
+
         return binding.getRoot();
     }
 
@@ -1358,6 +1366,32 @@ public class PostFragment extends PostFragmentBase implements FragmentCommunicat
                 lazyModeRunnable.resetOldPosition();
             }
         }
+    }
+
+    public void updateFlairs(List<Flair> flairs) {
+        if (flairs != null && !flairs.isEmpty()) {
+            binding.flairsView.getRoot().setVisibility(View.VISIBLE);
+            ChipGroup flairChipGroup = binding.flairsView.flairChipGroup;
+            flairChipGroup.removeAllViews();
+            for (Flair flair : flairs) {
+                Chip chip = (Chip) getLayoutInflater().inflate(R.layout.flair_chip, flairChipGroup, false);
+                chip.setText(flair.getText());
+                chip.setOnClickListener(v -> flairSelected(flair));
+                flairChipGroup.addView(chip);
+            }
+        } else {
+            if (binding.flairsView != null) {
+                binding.flairsView.getRoot().setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private void flairSelected(Flair flair) {
+        Intent intent = new Intent(activity, FilteredPostsActivity.class);
+        intent.putExtra(FilteredPostsActivity.EXTRA_NAME, subredditName);
+        intent.putExtra(FilteredPostsActivity.EXTRA_POST_TYPE, postType);
+        intent.putExtra(FilteredPostsActivity.EXTRA_CONTAIN_FLAIR, flair.getText());
+        startActivity(intent);
     }
 
     public SortType getSortType() {
